@@ -1,0 +1,17 @@
+=========================
+Organizing Python imports
+=========================
+
+XXX writeme
+
+Usage
+=====
+
+::
+
+    (load-file "wosc-import.el")
+
+    (add-hook 'python-mode-hook
+              (lambda ()
+                (define-key python-mode-map [f6] 'wosc-sort-imports)
+                (define-key python-mode-map [f7] 'wosc-create-import))
