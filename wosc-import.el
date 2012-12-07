@@ -19,13 +19,14 @@
   )))
 
 (defun wosc-goto-end-of-imports ()
-  (while (looking-at wosc-import-or-blank)
-    (forward-line 1))
-  ; now we're on the first non-blank, non-import line.
-  ; go back one and skip backwards over the blanks
-  (forward-line -1)
-  (while (looking-at "^$")
-    (forward-line -1))
+  (while (and (looking-at wosc-import-or-blank)
+             (equal (forward-line 1) 0)) nil)
+  (move-beginning-of-line nil)
+  (if (not (looking-at wosc-import-line))
+      ; we're on the first non-blank, non-import line
+      (forward-line -1))
+  (while (and (looking-at "^$")
+              (equal (forward-line -1) 0)) nil)
   (move-end-of-line nil)
   )
 
@@ -56,11 +57,7 @@
         (goto-char (point-min))
         (re-search-forward wosc-import-line nil t)
         (move-beginning-of-line nil)
-        (if (looking-at wosc-import-or-blank)
-            (wosc-goto-end-of-imports)
-          (while (not (looking-at "^$"))
-            (forward-line 1)))
-        (newline)
+        (open-line 1)
         (insert "import " package)
         (wosc-sort-imports)))
     )
