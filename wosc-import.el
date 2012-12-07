@@ -46,26 +46,30 @@
     )
   )
 
+(defun _wosc-create-import (package)
+  (if (wosc-import-exists package)
+      (progn
+        (message "import %s already exists" package)
+        (deactivate-mark))
+    (progn
+      (save-excursion
+        (goto-char (point-min))
+        (re-search-forward wosc-import-line nil t)
+        (move-beginning-of-line nil)
+        (if (looking-at wosc-import-or-blank)
+            (wosc-goto-end-of-imports)
+          (while (not (looking-at "^$"))
+            (forward-line 1)))
+        (newline)
+        (insert "import " package)
+        (wosc-sort-imports)))
+    )
+  )
+
 (defun wosc-create-import (start end)
   (interactive "r")
   (let ((package (if (and transient-mark-mode mark-active)
                      (buffer-substring start end)
                    (wosc-guess-package-at-point))))
-    (if (wosc-import-exists package)
-        (progn
-          (message "import %s already exists" package)
-          (deactivate-mark))
-      (progn
-        (save-excursion
-          (goto-char (point-min))
-          (re-search-forward wosc-import-line nil t)
-          (move-beginning-of-line nil)
-          (if (looking-at wosc-import-or-blank)
-              (wosc-goto-end-of-imports)
-            (while (not (looking-at "^$"))
-              (forward-line 1)))
-          (newline)
-          (insert "import " package)
-          (wosc-sort-imports)))
-      ))
+    (_wosc-create-import package))
   )
