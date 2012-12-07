@@ -1,4 +1,4 @@
-(load "../wosc-import.el")
+(load "wosc-import.el")
 
 
 (defun this-line ()
