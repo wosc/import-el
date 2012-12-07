@@ -10,7 +10,7 @@
 
 (ert-deftest creates-import-line ()
              (with-temp-buffer
-               (insert "import zoo\\nfoo\n")
+               (insert "import zoo\nfoo\n")
                (_wosc-create-import "foo.bar")
                (goto-char (point-min))
                (should (equal "import foo.bar" (this-line)))
