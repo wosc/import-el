@@ -10,7 +10,7 @@
   )
 
 
-(ert-deftest creates-import-line ()
+(ert-deftest wosc-import-test-creates-import-line ()
   (with-temp-buffer
     (insert "import zoo\nfoo\n")
     (_wosc-create-import "foo.bar")
