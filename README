@@ -15,3 +15,13 @@ Usage
               (lambda ()
                 (define-key python-mode-map [f6] 'wosc-sort-imports)
                 (define-key python-mode-map [f7] 'wosc-create-import))
+
+
+Changelog
+=========
+
+1.0 (unreleased)
+----------------
+
+- Initial relase.
+
