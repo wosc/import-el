@@ -9,7 +9,7 @@ Usage
 
 ::
 
-    (load-file "wosc-import.el")
+    (load "wosc-import.el")
 
     (add-hook 'python-mode-hook
               (lambda ()
