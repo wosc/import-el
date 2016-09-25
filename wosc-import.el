@@ -47,8 +47,7 @@ buffer to the first non-blank, non-import line."
       (if (and start end)
           (progn
             (sort-lines nil start end)
-            (flush-lines "^$" start end)
-            ))
+            (flush-lines "^$" start end)))
   )))
 
 (defun wosc-goto-end-of-imports ()
@@ -60,8 +59,7 @@ buffer to the first non-blank, non-import line."
       (forward-line -1))
   (while (and (looking-at "^$")
               (equal (forward-line -1) 0)) nil)
-  (move-end-of-line nil)
-  )
+  (move-end-of-line nil))
 
 
 ;;;###autoload
@@ -73,8 +71,7 @@ region is used as the package name instead of prompting."
   (let ((package (if (and transient-mark-mode mark-active)
                      (buffer-substring start end)
                    (wosc-guess-package-at-point))))
-    (_wosc-create-import package))
-  )
+    (_wosc-create-import package)))
 
 (defun _wosc-create-import (package)
   (if (wosc-import-exists package)
@@ -88,25 +85,18 @@ region is used as the package name instead of prompting."
         (move-beginning-of-line nil)
         (open-line 1)
         (insert "import " package)
-        (wosc-sort-imports)))
-    )
-  )
+        (wosc-sort-imports)))))
 
 (defun wosc-import-exists (package)
   (save-excursion
     (goto-char (point-min))
-    (re-search-forward (concat "^import " package "$") nil t)
-    )
-  )
+    (re-search-forward (concat "^import " package "$") nil t)))
 
 (defun wosc-guess-package-at-point ()
   (save-excursion
     (let ((end (re-search-backward "\\." nil t))
           (start (re-search-backward "^\\|[ ([]" nil t))
           )
-      (buffer-substring start end)
-          )
-    )
-  )
+      (buffer-substring start end))))
 
 ;;; wosc-import.el ends here
