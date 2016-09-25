@@ -30,6 +30,7 @@
 (defconst wosc-import-line "^\\(import \\)\\|\\(from.*import\\)")
 (defconst wosc-import-or-blank (concat wosc-import-line "\\|$"))
 
+
 ;;;###autoload
 (defun wosc-sort-imports ()
   "Sorts import lines alphabetically, from the beginning of the
@@ -62,21 +63,17 @@ buffer to the first non-blank, non-import line."
   (move-end-of-line nil)
   )
 
-(defun wosc-import-exists (package)
-  (save-excursion
-    (goto-char (point-min))
-    (re-search-forward (concat "^import " package "$") nil t)
-    )
-  )
 
-(defun wosc-guess-package-at-point ()
-  (save-excursion
-    (let ((end (re-search-backward "\\." nil t))
-          (start (re-search-backward "^\\|[ ([]" nil t))
-          )
-      (buffer-substring start end)
-          )
-    )
+;;;###autoload
+(defun wosc-create-import (start end)
+  "Prompts for a package name and creates a import line for it,
+then calls wosc-sort-imports. In transient mark mode, the current
+region is used as the package name instead of prompting."
+  (interactive "r")
+  (let ((package (if (and transient-mark-mode mark-active)
+                     (buffer-substring start end)
+                   (wosc-guess-package-at-point))))
+    (_wosc-create-import package))
   )
 
 (defun _wosc-create-import (package)
@@ -95,16 +92,21 @@ buffer to the first non-blank, non-import line."
     )
   )
 
-;;;###autoload
-(defun wosc-create-import (start end)
-  "Prompts for a package name and creates a import line for it,
-then calls wosc-sort-imports. In transient mark mode, the current
-region is used as the package name instead of prompting."
-  (interactive "r")
-  (let ((package (if (and transient-mark-mode mark-active)
-                     (buffer-substring start end)
-                   (wosc-guess-package-at-point))))
-    (_wosc-create-import package))
+(defun wosc-import-exists (package)
+  (save-excursion
+    (goto-char (point-min))
+    (re-search-forward (concat "^import " package "$") nil t)
+    )
+  )
+
+(defun wosc-guess-package-at-point ()
+  (save-excursion
+    (let ((end (re-search-backward "\\." nil t))
+          (start (re-search-backward "^\\|[ ([]" nil t))
+          )
+      (buffer-substring start end)
+          )
+    )
   )
 
 ;;; wosc-import.el ends here
