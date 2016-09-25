@@ -1,3 +1,11 @@
+;;; wosc-import.el --- Organize Python imports
+
+;; Copyright 2012-2016 Wolfgang Schnerring
+
+;; Author: Wolfgang Schnerring <wosc@wosc.de>
+;; URL: https://bitbucket.org/wosc/import-el
+;; Version: 1.0.0
+
 (setq wosc-import-line "^\\(import \\)\\|\\(from.*import\\)")
 (setq wosc-import-or-blank (concat wosc-import-line "\\|$"))
 
@@ -70,3 +78,5 @@
                    (wosc-guess-package-at-point))))
     (_wosc-create-import package))
   )
+
+;;; wosc-import.el ends here
