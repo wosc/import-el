@@ -4,7 +4,7 @@
 
 ;; Author: Wolfgang Schnerring <wosc@wosc.de>
 ;; URL: https://bitbucket.org/wosc/import-el
-;; Version: 1.0.0
+;; Version: 1.1.0
 
 ;; This file is not part of GNU Emacs.
 
