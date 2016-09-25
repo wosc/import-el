@@ -6,8 +6,8 @@
 ;; URL: https://bitbucket.org/wosc/import-el
 ;; Version: 1.0.0
 
-(setq wosc-import-line "^\\(import \\)\\|\\(from.*import\\)")
-(setq wosc-import-or-blank (concat wosc-import-line "\\|$"))
+(defconst wosc-import-line "^\\(import \\)\\|\\(from.*import\\)")
+(defconst wosc-import-or-blank (concat wosc-import-line "\\|$"))
 
 (defun wosc-sort-imports ()
   (interactive)
