@@ -6,11 +6,34 @@
 ;; URL: https://bitbucket.org/wosc/import-el
 ;; Version: 1.0.0
 
+;; This file is not part of GNU Emacs.
+
+;;; License:
+
+;; Licensed under the same terms as Emacs.
+
+;;; Commentary:
+
+;; Quick start:
+;;    (autoload 'wosc-sort-imports "wosc-import" "Sort imports")
+;;    (autoload 'wosc-create-import "wosc-import" "Create import")
+;;
+;;    (add-hook 'python-mode-hook
+;;              (lambda ()
+;;                (define-key python-mode-map [f6] 'wosc-sort-imports)
+;;                (define-key python-mode-map [f7] 'wosc-create-import)))
+;;
+;; See the README for more details.
+
+;;; Code:
+
 (defconst wosc-import-line "^\\(import \\)\\|\\(from.*import\\)")
 (defconst wosc-import-or-blank (concat wosc-import-line "\\|$"))
 
 ;;;###autoload
 (defun wosc-sort-imports ()
+  "Sorts import lines alphabetically, from the beginning of the
+buffer to the first non-blank, non-import line."
   (interactive)
   (save-excursion
     (let ((start (progn
@@ -74,6 +97,9 @@
 
 ;;;###autoload
 (defun wosc-create-import (start end)
+  "Prompts for a package name and creates a import line for it,
+then calls wosc-sort-imports. In transient mark mode, the current
+region is used as the package name instead of prompting."
   (interactive "r")
   (let ((package (if (and transient-mark-mode mark-active)
                      (buffer-substring start end)
