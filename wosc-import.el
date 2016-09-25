@@ -9,6 +9,7 @@
 (defconst wosc-import-line "^\\(import \\)\\|\\(from.*import\\)")
 (defconst wosc-import-or-blank (concat wosc-import-line "\\|$"))
 
+;;;###autoload
 (defun wosc-sort-imports ()
   (interactive)
   (save-excursion
@@ -71,6 +72,7 @@
     )
   )
 
+;;;###autoload
 (defun wosc-create-import (start end)
   (interactive "r")
   (let ((package (if (and transient-mark-mode mark-active)
