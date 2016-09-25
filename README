@@ -2,14 +2,23 @@
 Organizing Python imports
 =========================
 
-XXX writeme
+This package offers two functions to help deal with Python import statements.
+
+``wosc-sort-imports`` sorts the import lines alphabetically, from the beginning
+of the buffer to the first non-blank, non-import line.
+
+``wosc-create-import`` prompts for a package name and creates a import line for
+it, then calls wosc-sort-imports. In transient mark mode, the current region is
+used as the package name instead of prompting.
+
 
 Usage
 =====
 
 ::
 
-    (load "wosc-import.el")
+    (autoload 'wosc-sort-imports "wosc-import" "Sort imports")
+    (autoload 'wosc-create-import "wosc-import" "Create import")
 
     (add-hook 'python-mode-hook
               (lambda ()
