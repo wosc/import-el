@@ -99,4 +99,5 @@ region is used as the package name instead of prompting."
           )
       (buffer-substring start end))))
 
+(provide 'wosc-import)
 ;;; wosc-import.el ends here
