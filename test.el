@@ -12,7 +12,7 @@
 
 (ert-deftest wosc-import-test-creates-import-line-in-empty-buffer ()
   (with-temp-buffer
-    (_wosc-create-import "foo.bar")
+    (wosc--create-import "foo.bar")
     (goto-char (point-min))
     (should (equal "import foo.bar" (this-line)))
     )
@@ -21,7 +21,7 @@
 (ert-deftest wosc-import-test-creates-import-line-with-no-import-lines ()
   (with-temp-buffer
     (insert "foo\n")
-    (_wosc-create-import "foo.bar")
+    (wosc--create-import "foo.bar")
     (goto-char (point-min))
     (should (equal "import foo.bar" (this-line)))
     )
@@ -30,7 +30,7 @@
 (ert-deftest wosc-import-test-creates-import-line-with-import-line ()
   (with-temp-buffer
     (insert "import zoo\nfoo\n")
-    (_wosc-create-import "foo.bar")
+    (wosc--create-import "foo.bar")
     (goto-char (point-min))
     (should (equal "import foo.bar" (this-line)))
     )

@@ -71,9 +71,9 @@ region is used as the package name instead of prompting."
   (let ((package (if (and transient-mark-mode mark-active)
                      (buffer-substring start end)
                    (wosc-guess-package-at-point))))
-    (_wosc-create-import package)))
+    (wosc--create-import package)))
 
-(defun _wosc-create-import (package)
+(defun wosc--create-import (package)
   (if (wosc-import-exists package)
       (progn
         (message "import %s already exists" package)
